@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body class="bg-light">
+
+    <nav class="navbar navbar-expand-lg navbar-light bg-light shadow-sm mb-4">
+        <div class="container">
+            <a class="navbar-brand" href="/"><i class="fas fa-meteor"></i></a>
+            
+            <div class="collapse navbar-collapse show">
+                <ul class="navbar-nav d-flex flex-row gap-3 align-items-center w-100">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">Главная</a>
+                    </li>
+                    
+                    {% for type in types %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="/?type={{ type.name }}">{{ type.name|title }}</a>
+                        </li>
+                    {% endfor %}
+
+                    <li class="nav-item">
+                        <a class="nav-link" href="/search">Поиск</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/product/create">Создать товар</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/type/create">Добавить тип</a>
+                    </li>
+                    
+                    <li class="nav-item ms-3">
+                        <form action="/set-welcome" method="GET" class="d-flex align-items-center g-2 m-0">
+                            <input type="text" name="message" class="form-control form-control-sm" placeholder="Введите приветствие...">
+                        </form>
+                    </li>
+
+                    <li class="nav-item ms-auto">
+                        <form action="/logout" method="POST" class="m-0">
+                            <button type="submit" class="btn btn-outline-danger btn-sm d-flex align-items-center gap-1">
+                                <i class="fas fa-sign-out-alt"></i> Выйти
+                            </button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="container">
+        {% if my_session_message %}
+            <div class="alert alert-success py-2 mb-4" role="alert">
+                Текущее приветствие: <strong>{{ my_session_message }}</strong>
+            </div>
+        {% endif %}
+
+        <div class="row g-4">
+            
+            <div class="col-md-9">
+                {% block content %}
+                {% endblock %}
+            </div>
+
+            <div class="col-md-3">
+                {% if history_pages %}
+                    <div class="bg-white p-3 border rounded shadow-sm">
+                        <h6 class="text-muted fw-bold mb-3" style="font-size: 0.85rem; text-transform: uppercase; letter-spacing: 0.5px;">
+                            Последние страницы
+                        </h6>
+                        <div class="d-flex flex-column gap-2">
+                            {% for page_url in history_pages %}
+                                <div class="p-2 border rounded-sm" style="background-color: #eef2ff; word-break: break-all;">
+                                    <a href="{{ page_url }}" class="text-primary text-decoration-underline" style="font-size: 0.9rem;">
+                                        {{ page_url }}
+                                    </a>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+
+        </div>
+    </div>
+
+</body>
+</html>

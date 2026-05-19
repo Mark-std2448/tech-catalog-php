@@ -1,0 +1,51 @@
+{% extends "__layout.twig" %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1 class="display-5 fw-normal mb-4">Поиск</h1>
+
+    <form action="/search" method="GET" class="row g-3 align-items-end mb-4">
+        
+        <div class="col-md-3">
+            <label class="form-label text-muted small mb-1">Тип</label>
+            <select name="type" class="form-select">
+                <option value="">Все</option>
+                {% for type in types %}
+                    <option value="{{ type.name }}" {% if type.name == selected_type %}selected{% endif %}>
+                        {{ type.name|title }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-md-3">
+            <label class="form-label text-muted small mb-1">Название</label>
+            <input type="text" name="title" class="form-control" value="{{ search_title }}">
+        </div>
+
+        <div class="col-md-4">
+            <label class="form-label text-muted small mb-1">Описание</label>
+            <input type="text" name="description" class="form-control" value="{{ search_description }}">
+        </div>
+
+        <div class="col-md-2">
+            <button type="submit" class="btn btn-primary w-100">Найти</button>
+        </div>
+
+    </form>
+
+    <div class="list-group rounded-1 shadow-sm">
+        {% if products is not empty %}
+            {% for product in products %}
+                <a href="/product/{{ product.id }}" class="list-group-item list-group-item-action py-3 text-primary text-decoration-none">
+                    {{ product.title }}
+                </a>
+            {% endfor %}
+        {% else %}
+            <div class="list-group-item text-muted py-3">
+                Ничего не найдено по вашему запросу.
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

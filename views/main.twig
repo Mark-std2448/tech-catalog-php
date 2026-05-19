@@ -1,0 +1,48 @@
+{% extends "__layout.twig" %}
+
+{% block content %}
+<div class="container mt-4">
+
+    {% if current_type_name %}
+        <div class="d-flex justify-content-between align-items-center mb-4 pb-2 border-bottom">
+            <h2>Категория: {{ current_type_name|title }}</h2>
+            
+            {% if current_type_id %}
+                <a href="/type/{{ current_type_id }}/delete" class="btn btn-danger btn-sm" onclick="return confirm('Вы точно хотите удалить категорию «{{ current_type_name }}»?');">
+                    Удалить эту категорию
+                </a>
+            {% endif %}
+        </div>
+    {% endif %}
+
+    <div class="d-flex flex-wrap gap-4 justify-content-start">
+        {% if objects is not empty %}
+            {% for object in objects %}
+                <div class="p-2 border rounded text-center bg-white" style="width: 210px;">
+                    
+                    <div class="border p-1 mb-2 bg-light" style="width: 192px; height: 192px; overflow: hidden;">
+                        {% if object.image %}
+                            <img src="{{ object.image }}" alt="{{ object.title }}" style="width: 100%; height: 100%; object-fit: cover;">
+                        {% else %}
+                            <div class="w-100 h-100 d-flex align-items-center justify-content-center text-muted small">Нет фото</div>
+                        {% endif %}
+                    </div>
+                    
+                    <a href="/product/{{ object.id }}" class="btn btn-primary w-100 mb-2">
+                        {{ object.title }}
+                    </a>
+                    
+                    <div class="d-flex justify-content-around small">
+                        <a href="/product/{{ object.id }}?show=image" class="text-decoration-none">Картинка</a>
+                        <a href="/product/{{ object.id }}?show=info" class="text-decoration-none">Описание</a>
+                    </div>
+
+                </div>
+            {% endfor %}
+        {% else %}
+            <p class="text-muted w-100 text-center mt-4">В этой категории пока нет объектов.</p>
+        {% endif %}
+    </div>
+
+</div>
+{% endblock %}

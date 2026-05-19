@@ -1,0 +1,52 @@
+{% extends "__layout.twig" %}
+
+{% block content %}
+<div class="container mt-4" style="max-width: 800px;">
+    <h1>Редактирование: {{ title_value }}</h1>
+    <hr>
+
+    <form method="POST" enctype="multipart/form-data" class="row g-3 bg-white p-4 border rounded">
+        
+        <input type="hidden" name="old_image" value="{{ image }}">
+
+        <div class="col-md-6">
+            <label class="form-label">Название</label>
+            <input type="text" class="form-control" name="title" value="{{ title_value }}" required>
+        </div>
+        
+        <div class="col-md-6">
+            <label class="form-label">Категория (Тип)</label>
+            <select class="form-select" name="type">
+                {% for type in types %}
+                    <option value="{{ type.name }}" {% if type.name == current_type %}selected{% endif %}>
+                        {{ type.name|title }}
+                    </option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="col-12">
+            <label class="form-label">Краткое описание</label>
+            <input type="text" class="form-control" name="description" value="{{ description }}" required>
+        </div>
+        
+        <div class="col-12">
+            <label class="form-label">Изображение (оставьте пустым, если не хотите менять)</label>
+            <input type="file" class="form-control" name="image" accept="image/*">
+            {% if image %}
+                <div class="mt-2 text-muted small">Текущее изображение: {{ image }}</div>
+            {% endif %}
+        </div>
+        
+        <div class="col-12">
+            <label class="form-label">Полные технические характеристики</label>
+            <textarea name="info" class="form-control" rows="5" required>{{ info }}</textarea>
+        </div>
+        
+        <div class="col-12 d-flex justify-content-between">
+            <a href="/product/{{ id }}" class="btn btn-secondary">Отмена</a>
+            <button type="submit" class="btn btn-success px-4">Сохранить изменения</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

@@ -1,0 +1,25 @@
+{% extends "__layout.twig" %}
+
+{% block content %}
+<div class="container mt-4" style="max-width: 600px;">
+    <h1>Добавление типа объектов</h1>
+    <hr>
+
+    {% if message %}
+        <div class="alert alert-success" role="alert">
+            {{ message }}
+        </div>
+    {% endif %}
+
+    <form method="POST" class="row g-3">
+        <div class="col-12">
+            <label class="form-label">Название типа</label>
+            <input type="text" class="form-control" name="name" required>
+        </div>
+        
+        <div class="col-12">
+            <button type="submit" class="btn btn-primary">Создать тип</button>
+        </div>
+    </form>
+</div>
+{% endblock %}

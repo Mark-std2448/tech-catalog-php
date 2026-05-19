@@ -1,0 +1,14 @@
+{% extends "__layout.twig" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="mb-3 d-flex align-items-center gap-3">
+        <a href="/product/{{ id }}?show=image" class="text-primary text-decoration-none">Картинка</a>
+        <button class="btn btn-primary">Описание</button>
+    </div>
+
+    <div class="p-4 border border-secondary-subtle bg-white" style="font-size: 1.1rem; line-height: 1.6;">
+        {{ info }}
+    </div>
+</div>
+{% endblock %}

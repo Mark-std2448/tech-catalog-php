@@ -1,0 +1,10 @@
+{% import "macros.twig" as macros %}
+
+<li class="list-group-item d-flex justify-content-between align-items-center">
+    <span class="fw-bold">{{ item.title }}</span> 
+    
+    <div>
+        {{ macros.btn("Картинка", "/product/image?id=" ~ item.id, true, "link") }}
+        {{ macros.btn("Описание", "/product/info?id=" ~ item.id, true, "link") }}
+    </div>
+</li>

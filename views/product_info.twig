@@ -1,0 +1,32 @@
+{% extends "__layout.twig" %}
+
+{% block content %}
+<div class="mb-3 d-flex align-items-center gap-3">
+    <a href="/product/{{ id }}?show=image" class="text-primary text-decoration-none">Картинка</a>
+    <a href="/product/{{ id }}?show=info" class="text-primary text-decoration-none">Описание</a>
+</div>
+
+<div class="row border border-secondary-subtle bg-white p-4 m-0">
+    <div class="col-md-4 text-center">
+        <img src="{{ image }}" alt="" class="img-fluid" style="max-height: 250px; object-fit: contain;">
+    </div>
+    <div class="col-md-8">
+        <h1>{{ title }}</h1>
+        <p class="lead text-muted">{{ description }}</p>
+        <a href="/" class="btn btn-secondary mt-3">Назад на главную</a>
+    </div>
+</div>
+
+<div class="mt-4 border-top pt-3 d-flex gap-2">
+    <a href="/product/{{ id }}/edit" class="btn btn-warning">
+        Редактировать товар
+    </a>
+
+    <form action="/product/delete" method="POST" onsubmit="return confirm('Вы точно хотите удалить этот товар?');">
+        <input type="hidden" name="id" value="{{ id }}">
+        <button type="submit" class="btn btn-danger">
+            Удалить этот товар
+        </button>
+    </form>
+</div>
+{% endblock %}
